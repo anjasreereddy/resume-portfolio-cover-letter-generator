@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Portfolio</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#dbe4f0;
+}
+
+/* Top toolbar */
+.toolbar{
+    width:900px;
+    margin:20px auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.toolbar-left, .toolbar-center, .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+button{
+    padding:10px 15px;
+    background:#1e2a47;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.page{
+    width:900px;
+    margin:auto 0 50px;
+    background:linear-gradient(135deg,#162447,#1f4068);
+    color:white;
+    padding:40px;
+    border-radius:8px;
+    box-sizing:border-box;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+    height:1000px; /* fixed page height */
+    position:relative;
+}
+
+.header{
+    border-bottom:2px solid rgba(255,255,255,0.2);
+    padding-bottom:20px;
+    margin-bottom:30px;
+}
+
+.header h1{
+    margin:0;
+    font-size:30px;
+    word-break:break-word;
+}
+
+.header h2{
+    margin:5px 0 0;
+    font-weight:normal;
+    color:#ffd369;
+    word-break:break-word;
+}
+
+.section{
+    margin-bottom:30px;
+}
+
+.section h3{
+    color:#ffd369;
+}
+
+.project-box{
+    background:rgba(255,255,255,0.08);
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:6px;
+    word-break:break-word;
+}
+
+.project-box h4{
+    margin-top:0;
+}
+
+ul{
+    padding-left:18px;
+}
+
+li{
+    margin-bottom:6px;
+    word-break:break-word;
+}
+</style>
+</head>
+<body>
+
+<!-- Top toolbar buttons -->
+<div class="toolbar">
+    <div class="toolbar-center">
+        <button onclick="goDashboard()">⬅ Go Back</button>
+    </div>
+    <div class="toolbar-right">
+        <button onclick="downloadAllPages()">⬇ Download Image</button>
+    </div>
+</div>
+
+<div id="pages-container"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+/* User info */
+const name = params.get("name") || "";
+const roleMain = params.get("role") || "";
+const skills = params.get("skills") || "";
+const aboutText = params.get("about") || "";  // user input only
+
+/* Projects */
+const totalProjects = parseInt(params.get("total_projects")) || 0;
+let projects = [];
+for(let i=1;i<=totalProjects;i++){
+    projects.push({
+        title: params.get(`title_${i}`) || "",
+        role: params.get(`role_${i}`) || "",
+        tech: params.get(`tech_${i}`) || "",
+        overview: params.get(`overview_${i}`) || "", // user input only
+        results: params.get(`results_${i}`) || ""    // user input only
+    });
+}
+
+const pagesContainer = document.getElementById("pages-container");
+const PAGE_HEIGHT = 1000; 
+const PAGE_PADDING = 40+40; 
+const HEADER_HEIGHT = 150; 
+let currentPage, currentPageHeight=0;
+let allPages = [];
+
+function createNewPage(){
+    currentPage = document.createElement("div");
+    currentPage.className="page";
+    currentPageHeight = 0;
+    pagesContainer.appendChild(currentPage);
+    allPages.push(currentPage);
+    return currentPage;
+}
+
+// Start first page
+createNewPage();
+
+// Header + About Me + Skills
+if(name || roleMain){
+    const headerDiv = document.createElement("div");
+    headerDiv.className="header";
+    headerDiv.innerHTML = `<h1>${name}</h1><h2>${roleMain}</h2>`;
+    currentPage.appendChild(headerDiv);
+    currentPageHeight += HEADER_HEIGHT;
+}
+
+if(aboutText){
+    const aboutDiv = document.createElement("div");
+    aboutDiv.className="section";
+    aboutDiv.innerHTML = `<h3>About Me</h3><p>${aboutText}</p>`;
+    currentPage.appendChild(aboutDiv);
+    currentPageHeight += 120;
+}
+
+if(skills){
+    const skillsDiv = document.createElement("div");
+    skillsDiv.className="section";
+    const skillList = skills.split(/\n|,/).map(s=>s.trim()).filter(Boolean).map(s=>`<li>${s}</li>`).join('');
+    skillsDiv.innerHTML = `<h3>Skills</h3><ul>${skillList}</ul>`;
+    currentPage.appendChild(skillsDiv);
+    currentPageHeight += 100;
+}
+
+function fitsInPage(elHeight){
+    return (currentPageHeight + elHeight + PAGE_PADDING) <= PAGE_HEIGHT;
+}
+
+// Add projects with pagination
+projects.forEach(p=>{
+    const div = document.createElement("div");
+    div.className="project-box";
+    div.innerHTML = `<h4>${p.title}</h4>
+                     <p><b>Role:</b> ${p.role}</p>
+                     <p><b>Technologies:</b> ${p.tech}</p>
+                     ${p.overview ? `<p><b>Overview:</b> ${p.overview}</p>` : ''}
+                     ${p.results ? `<p><b>Results:</b></p><ul><li>${p.results}</li></ul>` : ''}`;
+
+    currentPage.appendChild(div);
+    const elHeight = div.offsetHeight + 20;
+
+    if(!fitsInPage(elHeight)){
+        currentPage.removeChild(div);
+        createNewPage();
+        currentPage.appendChild(div);
+        currentPageHeight = div.offsetHeight + 20 + HEADER_HEIGHT;
+    } else {
+        currentPageHeight += elHeight;
+    }
+});
+
+// Top-level Go Back
+function goDashboard(){
+    window.location.href = "{{ url_for('dashboard') }}";
+}
+
+// Top-level download all pages one by one
+function downloadAllPages(){
+    allPages.forEach((page, idx)=>{
+        html2canvas(page,{scale:2,useCORS:true}).then(canvas=>{
+            const link=document.createElement("a");
+            link.download=`portfolio_page_${idx+1}.png`;
+            link.href=canvas.toDataURL("image/png");
+            link.click();
+        });
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cover Letter Form</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+    margin: 0;
+}
+.container {
+    width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 6px;
+}
+h2 { text-align:center; margin-bottom:15px; }
+.note { background:#fffae6; padding:10px; border-left:4px solid #ffcc00; margin-bottom:20px; font-size:14px; }
+.form-group { margin-bottom:20px; }
+label { display:block; font-weight:bold; margin-bottom:8px; }
+input, textarea { width:100%; padding:10px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px; }
+textarea { min-height:100px; }
+button { width:100%; padding:14px; margin-top:15px; border:none; cursor:pointer; font-size:15px; border-radius:4px; }
+.generate { background:#2f3b4a; color:white; }
+.back-btn { background:#999; color:white; display:inline-block; text-align:center; padding:12px; margin-top:10px; text-decoration:none; }
+</style>
+
+<script>
+window.onload = function(){
+    const params = new URLSearchParams(window.location.search);
+    const fields = ["name","role","email","phone","address","recipient","para1","para2","para3"];
+    fields.forEach(f=>{
+        if(params.get(f)){
+            const el = document.querySelector(`[name="${f}"]`);
+            if(el) el.value = params.get(f);
+        }
+    });
+
+    // Auto-generate date
+    const dateField = document.getElementById("date");
+    if(!dateField.value){
+        const today = new Date();
+        dateField.value = today.toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+    }
+};
+</script>
+</head>
+
+<body>
+<div class="container">
+<h2>Cover Letter Form</h2>
+
+<!-- Notes Section -->
+<div class="note">
+1. Fill all compulsory sections carefully.<br>
+2. Press Enter to add point-wise information where required.<br>
+3. Write each paragraph at least five lines.
+</div>
+
+<form action="{{ url_for('cover_letter_form') }}" method="POST">
+
+<div class="form-group">
+<label>Name *</label>
+<input name="name" required placeholder="e.g., John Doe">
+</div>
+
+<div class="form-group">
+<label>Role *</label>
+<input name="role" required placeholder="e.g., Software Engineer, Data Analyst, System Engineer">
+</div>
+
+<div class="form-group">
+<label>Email *</label>
+<input name="email" required placeholder="e.g., example@gmail.com">
+</div>
+
+<div class="form-group">
+<label>Phone *</label>
+<input name="phone" required placeholder="e.g., +91-9876543210">
+</div>
+
+<div class="form-group">
+<label>Address *</label>
+<textarea name="address" required placeholder="e.g., House No. 12, MG Road, Hyderabad, Telangana, 500001"></textarea>
+</div>
+
+<div class="form-group">
+<label>Recipient (To) *</label>
+<input name="recipient" required placeholder="e.g., Hiring Manager, Evercraft">
+</div>
+
+<div class="form-group">
+<label>Date</label>
+<input name="date" id="date" readonly>
+</div>
+
+<!-- 3 PARAGRAPHS -->
+<div class="form-group">
+<label>Paragraph 1 *</label>
+<textarea name="para1" placeholder="Explain why you are writing this letter, why you are applying to this company, what matches your interest (at least 5 lines)" required></textarea>
+</div>
+
+<div class="form-group">
+<label>Paragraph 2 *</label>
+<textarea name="para2" placeholder="Describe your skills, education, projects, and what you did in your projects (at least 5 lines)" required></textarea>
+</div>
+
+<div class="form-group">
+<label>Paragraph 3 *</label>
+<textarea name="para3" placeholder="Polite conclusion, confidence, eagerness to work, explain why you are eligible (at least 5 lines). 'Sincerely, [Your Name]' will be appended automatically." required></textarea>
+</div>
+
+<button type="submit" class="generate">Generate Cover Letter</button>
+<a href="{{ url_for('dashboard') }}" class="back-btn">Go Back</a>
+
+</form>
+</div>
+</body>
+</html>

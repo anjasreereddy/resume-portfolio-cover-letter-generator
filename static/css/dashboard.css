@@ -1,0 +1,60 @@
+/* ===== BODY ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+}
+
+/* ===== DASHBOARD CONTAINER ===== */
+.dashboard-container {
+    width: 500px;
+    margin: 100px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+/* ===== HEADING ===== */
+.dashboard-container h1 {
+    margin-bottom: 40px;
+    color: #1e2a47;
+    font-size: 28px; /* slightly increased for readability */
+}
+
+/* ===== BUTTONS ===== */
+.dashboard-btn {
+    width: 100%;
+    padding: 16px; /* slightly increased padding */
+    margin-bottom: 20px;
+    font-size: 17px; /* slightly larger font */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #1e2a47;
+    color: white;
+    transition: 0.3s;
+}
+
+.dashboard-btn:hover {
+    background: #162036;
+    transform: scale(1.03); /* subtle hover scaling for feedback */
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 550px) {
+    .dashboard-container {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .dashboard-btn {
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    .dashboard-container h1 {
+        font-size: 24px;
+    }
+}

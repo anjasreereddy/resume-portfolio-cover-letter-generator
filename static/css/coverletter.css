@@ -1,0 +1,93 @@
+/* RESET */
+*{
+    box-sizing:border-box;
+}
+
+/* PAGE BACKGROUND */
+body{
+    background:#e6e6e6;
+    margin:0;
+    font-family:"Times New Roman", serif;
+}
+
+/* PRINT FIX */
+@media print{
+    body{
+        background:white;
+    }
+    .cover-letter{
+        box-shadow:none;
+        margin:0;
+        width:100%;
+    }
+}
+
+/* MAIN LETTER CONTAINER */
+.cover-letter{
+    width:210mm;
+    margin:30px auto;
+    background:white;
+    padding:60px;
+    box-shadow:0 0 20px rgba(0,0,0,0.15);
+
+    /* VERY IMPORTANT */
+    height:auto;          /* allow auto expand */
+    overflow:visible;     /* DO NOT HIDE CONTENT */
+}
+
+/* HEADER */
+.header h1{
+    margin:0;
+    font-size:22pt;
+    font-weight:bold;
+}
+
+.contact{
+    margin-top:5px;
+    font-size:11pt;
+    line-height:1.5;
+}
+
+/* DIVIDER LINE */
+.divider{
+    border-top:1px solid #999;
+    margin:20px 0;
+}
+
+/* DATE RIGHT ALIGN */
+.date{
+    text-align:right;
+    font-size:11pt;
+}
+
+/* RECIPIENT BLOCK */
+.recipient{
+    margin-top:30px;
+    font-size:11pt;
+    line-height:1.5;
+}
+
+/* SALUTATION */
+.salutation{
+    margin-top:20px;
+    font-size:12pt;
+}
+
+/* PARAGRAPHS */
+.paragraph{
+    margin-top:18px;
+    font-size:12pt;
+    line-height:1.8;
+    text-align:justify;
+
+    /* THIS FIXES YOUR MAIN ISSUE */
+    white-space:pre-wrap;       /* preserve line breaks */
+    word-wrap:break-word;       /* break long words */
+    overflow-wrap:break-word;   /* prevent overflow */
+}
+
+/* CLOSING */
+.closing{
+    margin-top:30px;
+    font-size:12pt;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:linear-gradient(135deg,#1e2a47,#162447);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            text-align:center;
+            color:white;
+            max-width:900px;
+            padding:20px;
+        }
+
+        .container h1{
+            font-size:44px;
+            margin-bottom:10px;
+        }
+
+        .container h2{
+            font-size:24px;
+            font-weight:normal;
+            margin-bottom:20px;
+            color:#ffd369;
+        }
+
+        .note{
+            font-size:14px;
+            color:#f0f0f0;
+            margin-bottom:40px;
+        }
+
+        .btn-group{
+            display:flex;
+            justify-content:center;
+            gap:40px;
+            flex-wrap:wrap;
+        }
+
+        .btn{
+            padding:16px 40px;
+            font-size:18px;
+            background:#ffd369;
+            color:#1e2a47;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            text-decoration:none;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:white;
+            transform:scale(1.05);
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Build Your AI Resume, Portfolio & Cover Letter</h1>
+    <h2>In Just Five Minutes</h2>
+
+    <p class="note">
+        Note: This website designed is specifically for students and freshers. 
+    </p>
+
+    <div class="btn-group">
+
+        <!-- RESUME BUTTON -->
+        <a href="{{ url_for('resume_form') }}" class="btn">
+            Resume Form
+        </a>
+
+        <!-- COVER LETTER BUTTON -->
+        <a href="{{ url_for('cover_letter_form') }}" class="btn">
+            Cover Letter Form
+        </a>
+
+        <!-- PORTFOLIO BUTTON -->
+        <a href="{{ url_for('portfolio_form') }}" class="btn">
+            Portfolio Form
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cover Letter</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:#e6e6e6;
+    font-family:"Times New Roman", serif;
+}
+
+/* ACTION BUTTONS */
+.actions{
+    width:210mm;
+    margin:20px auto;
+    display:flex;
+    justify-content:space-between;
+}
+
+button{
+    padding:8px 18px;
+    background:black;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+/* MAIN LETTER */
+.cover-letter{
+    width:210mm;
+    margin:auto;
+    background:white;
+    padding:60px;
+    box-shadow:0 0 20px rgba(0,0,0,0.15);
+    height:auto;
+    overflow:visible;
+}
+
+/* NAME */
+.name{
+    font-size:22pt;
+    font-weight:bold;
+}
+
+/* CONTACT */
+.contact{
+    margin-top:5px;
+    font-size:11pt;
+    line-height:1.5;
+}
+
+/* DIVIDER */
+.divider{
+    border-top:1px solid #999;
+    margin:20px 0;
+}
+
+/* DATE */
+.date{
+    text-align:right;
+    font-size:11pt;
+}
+
+/* SALUTATION */
+.salutation{
+    margin-top:25px;
+    font-size:12pt;
+}
+
+/* PARAGRAPHS */
+.paragraph{
+    margin-top:18px;
+    font-size:12pt;
+    line-height:1.8;
+    text-align:justify;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+}
+
+/* SIGNATURE */
+.signature{
+    margin-top:30px;
+    font-size:12pt;
+}
+
+/* PRINT SETTINGS */
+@media print{
+    body{
+        background:white;
+    }
+    .actions{
+        display:none;
+    }
+    .cover-letter{
+        box-shadow:none;
+        margin:0;
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="actions">
+<button onclick="window.location.href='{{ url_for('dashboard') }}'">⬅ Go Back</button>
+<button onclick="downloadImage()">⬇ Download Image</button>
+</div>
+
+<div class="cover-letter" id="coverLetter">
+
+<!-- HEADER -->
+<div class="name">{{ name }}</div>
+
+<div class="contact">
+{% if address %}{{ address }}<br>{% endif %}
+{% if phone %}{{ phone }}<br>{% endif %}
+{% if email %}{{ email }}{% endif %}
+</div>
+
+<div class="divider"></div>
+
+<!-- DATE -->
+<div class="date">
+{{ date }}
+</div>
+
+<!-- SALUTATION ONLY (Recipient shown once here) -->
+<div class="salutation">
+Dear {{ recipient }},
+</div>
+
+<!-- BODY PARAGRAPHS -->
+{% if para1 %}
+<div class="paragraph">{{ para1 }}</div>
+{% endif %}
+
+{% if para2 %}
+<div class="paragraph">{{ para2 }}</div>
+{% endif %}
+
+{% if para3 %}
+<div class="paragraph">{{ para3 }}</div>
+{% endif %}
+
+<!-- CLOSING -->
+<div class="signature">
+Sincerely,<br><br>
+{{ name }}
+</div>
+
+</div>
+
+<script>
+function downloadImage(){
+    html2canvas(document.getElementById("coverLetter"),{
+        scale:2,
+        useCORS:true,
+        scrollY:-window.scrollY
+    }).then(canvas=>{
+        const link=document.createElement("a");
+        link.download="Cover_Letter.png";
+        link.href=canvas.toDataURL("image/png");
+        link.click();
+    });
+}
+</script>
+
+</body>
+</html>

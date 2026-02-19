@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Portfolio Form</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f4f8;
+}
+.container{
+    width:750px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+}
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:12px;
+}
+textarea{ height:80px; }
+
+button{
+    padding:10px 15px;
+    border:none;
+    cursor:pointer;
+    background:#1e2a47;
+    color:white;
+}
+
+.project-block{
+    border:1px solid #ddd;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:6px;
+    background:#fafafa;
+    position:relative;
+}
+
+.delete-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:red;
+    color:white;
+    border:none;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.actions{
+    display:flex;
+    justify-content:space-between;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>Portfolio Details</h2>
+
+<form id="portfolioForm">
+
+<input name="name" placeholder="Full Name" required>
+<input name="role" placeholder="Role" required>
+<textarea name="skills" placeholder="Skills (comma separated)" required></textarea>
+<textarea name="about" placeholder="About Me"></textarea>
+
+<h3>Key Projects</h3>
+
+<div id="projectsContainer"></div>
+
+<button type="button" onclick="addProject()">+ Add Another Key Project</button>
+
+<br><br>
+
+<div class="actions">
+<button type="button" onclick="window.location.href='{{ url_for('dashboard') }}'">⬅ Go Back</button>
+<button type="submit">Generate Portfolio</button>
+</div>
+
+</form>
+</div>
+
+<script>
+let projectIndex = 0;
+
+// ADD PROJECT
+function addProject(data={}){
+    projectIndex++;
+    const container = document.getElementById("projectsContainer");
+    const div = document.createElement("div");
+    div.className="project-block";
+    div.setAttribute("data-id", projectIndex);
+
+    div.innerHTML = `
+    <button type="button" class="delete-btn" onclick="deleteProject(this)">×</button>
+    <h4>Project</h4>
+    <input name="title_${projectIndex}" placeholder="Project Title" value="${data.title||''}" required>
+    <input name="role_${projectIndex}" placeholder="Your Role" value="${data.role||''}" required>
+    <input name="tech_${projectIndex}" placeholder="Technologies (comma separated)" value="${data.tech||''}" required>
+    <textarea name="overview_${projectIndex}" placeholder="Project Overview">${data.overview||''}</textarea>
+    <textarea name="results_${projectIndex}" placeholder="Results">${data.results||''}</textarea>
+    `;
+    container.appendChild(div);
+}
+
+// DELETE PROJECT
+function deleteProject(btn){
+    btn.parentElement.remove();
+}
+
+// FORM SUBMIT
+document.getElementById("portfolioForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    const formData = new FormData(this);
+    const params = new URLSearchParams();
+    formData.forEach((v,k)=>{
+        if(v.trim()!=='') params.append(k,v);
+    });
+    const totalProjects = document.querySelectorAll(".project-block").length;
+    params.append("total_projects", totalProjects);
+
+    // Navigate to portfolio template
+    window.location.href = "{{ url_for('portfolio_template') }}?" + params.toString();
+});
+</script>
+
+</body>
+</html>

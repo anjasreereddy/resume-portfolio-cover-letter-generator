@@ -1,0 +1,135 @@
+/* ===== RESET ===== */
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+    background:#e5e5e5;
+}
+
+/* ===== ACTIONS ===== */
+.actions{
+    width:230mm;   /* matches resume width */
+    margin:15px auto;
+    display:flex;
+    justify-content:space-between;
+}
+
+button{
+    padding:7px 14px;
+    background:#162447;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+button:hover{
+    background:#0f1a2b;
+}
+
+/* ===== RESUME LAYOUT ===== */
+.resume{
+    width:230mm;
+    margin:auto;
+    display:grid;
+    grid-template-columns:30% 70%;
+    background:white;
+    box-shadow:0 0 20px rgba(0,0,0,0.15);
+}
+
+/* Prevent grid stretch */
+.resume > div{
+    align-self:start;
+}
+
+/* ===== HEADER ===== */
+.header{
+    grid-column:1/3;
+    background:linear-gradient(135deg,#162447,#1f4068);
+    color:white;
+    text-align:center;
+    padding:12px 10px;  /* slightly increased */
+    line-height:1.2;
+}
+
+.header h1{
+    font-size:26px;   /* slightly larger for readability */
+    letter-spacing:0.5px;
+    word-break:break-word;
+}
+
+.header h2{
+    margin-top:4px;
+    font-size:14px;   /* slightly larger */
+    font-weight:normal;
+    color:#ffd369;
+}
+
+/* ===== LEFT COLUMN ===== */
+.left{
+    background:#f7f7f7;
+    padding:16px;
+}
+
+.left h3{
+    font-size:13px;  /* slightly larger */
+    border-bottom:1px solid #bbb;
+    padding-bottom:3px;
+    margin-bottom:8px;
+    margin-top:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.left p,.left li{
+    font-size:12px;  /* increased for readability */
+    line-height:1.5;
+    margin:3px 0;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.left ul{
+    padding-left:16px;
+}
+
+/* ===== RIGHT COLUMN ===== */
+.right{
+    padding:16px;
+}
+
+.section{
+    margin-bottom:14px;
+}
+
+.section h3{
+    font-size:14px;  /* slightly increased */
+    border-bottom:1px solid #ccc;
+    padding-bottom:4px;
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.section p{
+    font-size:12px;  /* increased for readability */
+    line-height:1.6;
+    margin:4px 0;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+/* ===== PRINT ===== */
+@media print{
+    body{ background:white; }
+    .actions{ display:none; }
+    .resume{
+        width:230mm;   /* match screen width */
+        box-shadow:none;
+    }
+}

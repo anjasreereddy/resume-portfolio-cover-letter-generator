@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resume Form</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+    margin: 0;
+}
+
+.container {
+    width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border-radius: 6px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.note-box {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #2f3b4a;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    min-height: 100px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.generate {
+    background: #2f3b4a;
+    color: white;
+}
+
+.back-btn {
+    background: #999;
+    color: white;
+}
+
+.remove-btn {
+    background: #c0392b;
+    color: white;
+    margin-top: 5px;
+    padding: 8px;
+    width: auto;
+}
+</style>
+
+<script>
+function addEducation(institute="", degree="", gpa="") {
+    const container = document.getElementById("education-section");
+    const div = document.createElement("div");
+    div.className = "form-group";
+    div.innerHTML = `
+        <label>Institute Name *</label>
+        <input name="institute[]" required value="${institute}">
+        <label>Degree *</label>
+        <input name="degree[]" required value="${degree}">
+        <label>GPA *</label>
+        <input name="gpa[]" required value="${gpa}">
+        <button type="button" class="remove-btn" onclick="removeEducation(this)">❌ Remove</button>
+        <hr>
+    `;
+    container.appendChild(div);
+}
+
+function removeEducation(button) {
+    button.parentElement.remove();
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+<h2>Resume Form</h2>
+
+<div class="note-box">
+<strong>Note:</strong><br>
+Fill all compulsory sections carefully.<br>
+Press Enter to add point-wise information where required.
+</div>
+
+<form action="{{ url_for('resume_form') }}" method="POST">
+
+<div class="form-group">
+<label>Name (with Surname) *</label>
+<input name="name" placeholder="Enter your full name with surname" required>
+</div>
+
+<div class="form-group">
+<label>Role *</label>
+<input name="role" placeholder="Software Developer / Data Analyst / Designer" required>
+</div>
+
+<div class="form-group">
+<label>Phone Number *</label>
+<input name="phone" placeholder="Enter your phone number" required>
+</div>
+
+<div class="form-group">
+<label>Gmail *</label>
+<input name="email" placeholder="example@gmail.com" required>
+</div>
+
+<div class="form-group">
+<label>Address *</label>
+<textarea name="address" placeholder="House No
+Street Name
+City
+District
+State
+PIN Code" required></textarea>
+</div>
+
+<div class="form-group">
+<label>Skills *</label>
+<textarea name="skills" placeholder="Python
+HTML
+CSS
+JavaScript
+SQL" required></textarea>
+</div>
+
+<div class="form-group">
+<label>Languages *</label>
+<textarea name="languages" placeholder="English
+Telugu
+Hindi" required></textarea>
+</div>
+
+<div class="form-group">
+<label>Profile Summary *</label>
+<textarea name="profile" placeholder="Write 3–5 lines about your background,
+your strengths,
+and your career objective." required></textarea>
+</div>
+
+<div class="form-group">
+<label>Websites</label>
+<textarea name="websites" placeholder="LinkedIn: https://linkedin.com/in/yourname
+GitHub: https://github.com/yourname
+Portfolio: https://yourportfolio.com"></textarea>
+</div>
+
+<div class="form-group">
+<label>Education *</label>
+</div>
+
+<div id="education-section">
+<div class="form-group">
+<label>Institute Name *</label>
+<input name="institute[]" required>
+
+<label>Degree *</label>
+<input name="degree[]" required>
+
+<label>GPA *</label>
+<input name="gpa[]" required>
+
+<button type="button" class="remove-btn" onclick="removeEducation(this)">❌ Remove</button>
+<hr>
+</div>
+</div>
+
+<div class="form-group">
+<button type="button" onclick="addEducation()">Add Another Education</button>
+</div>
+
+<div class="form-group">
+<label>Certifications</label>
+<textarea name="certifications" placeholder="AWS Certification
+Google Analytics Certification
+Python Course Completion"></textarea>
+</div>
+
+<div class="form-group">
+<label>Activities and Honors</label>
+<textarea name="activities" placeholder="Internship at XYZ Company
+Hackathon Participation
+Workshop on AI
+Sports Achievements
+Leadership Roles"></textarea>
+</div>
+
+<div class="form-group">
+<label>Additional Information</label>
+<textarea name="additional" placeholder="Things that are not mentioned above,
+extra achievements,
+or other relevant information."></textarea>
+</div>
+
+<button type="submit" class="generate">Generate Resume</button>
+<button type="button" class="back-btn" onclick="window.location.href='{{ url_for('dashboard') }}'">Go Back</button>
+
+</form>
+</div>
+
+</body>
+</html>

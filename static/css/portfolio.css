@@ -1,0 +1,194 @@
+/* ===== RESET ===== */
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* ===== BODY ===== */
+body {
+    background:#dbe4f0;
+}
+
+/* ===== TOOLBAR ===== */
+.toolbar {
+    width: 900px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.toolbar-left, .toolbar-center, .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background: #1e2a47;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background:#0f1a2b;
+}
+
+/* ===== PAGE CONTAINER ===== */
+.page {
+    width: 900px;
+    margin: auto 0 50px;
+    background: linear-gradient(135deg, #162447, #1f4068);
+    color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    height: 1000px;
+    position: relative;
+}
+
+/* ===== HEADER ===== */
+.header {
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 30px;
+    word-break: break-word;
+}
+
+.header h2 {
+    margin: 5px 0 0;
+    font-weight: normal;
+    color: #ffd369;
+    word-break: break-word;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+    margin-bottom: 30px;
+}
+
+.section h3 {
+    color: #ffd369;
+    margin-bottom: 10px;
+}
+
+/* ===== PROJECT BOX ===== */
+.project-box {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    word-break: break-word;
+    white-space: pre-line;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-box h4 {
+    margin-top: 0;
+    color: #ffd369;
+}
+
+/* ===== LISTS ===== */
+ul {
+    padding-left: 18px;
+}
+
+li {
+    margin-bottom: 6px;
+    word-break: break-word;
+    white-space: pre-line;
+}
+
+/* ===== FORM CONTAINER ===== */
+.container, .portfolio-form-container {
+    width: 750px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px 35px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+}
+
+/* ===== INPUTS & TEXTAREAS ===== */
+input, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+/* ===== PROJECT BLOCK IN FORM ===== */
+.project-block {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background: #fafafa;
+    position: relative;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ===== FORM ACTIONS ===== */
+.actions, .portfolio-form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 950px) {
+    .page, .toolbar, .container, .portfolio-form-container {
+        width: 95%;
+    }
+}
+
+/* ===== PRINT / DOWNLOAD ===== */
+@media print {
+    .toolbar, .delete-btn, .actions, .portfolio-form-actions {
+        display: none !important;
+    }
+    .page {
+        page-break-after: always;
+        height: auto;
+        margin-bottom: 50px;
+    }
+    .project-box {
+        page-break-inside: avoid;
+    }
+}
