@@ -101,8 +101,8 @@ It simply formats user-provided data into structured templates.
 Step 1: Clone Repository
 Copy code
 
-git clone <repository-link>
-cd resume-portfolio-coverletter-builder
+git clone https://github.com/anjasreereddy/resume-portfolio-cover-letter-generator.git
+cd resume-portfolio-cover-letter-generator
 Step 2: Install Dependencies
 Copy code
 
