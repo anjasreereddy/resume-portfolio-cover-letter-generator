@@ -126,6 +126,17 @@ Beginner-Friendly Flask Structure
 🌐 Live Demo
 
 https://build-your-resume-coverletter-portfolio.onrender.com/
+## 📸 Screenshots
+
+### Resume Generator
+![Generated Resume](sample_generated_resume.png)
+
+### Cover Letter Generator
+![Generated Cover Letter](sample_cover_letter.png)
+
+### Portfolio Generator
+![Generated Portfolio](sample_portfolio.png)
+
 📌 Limitations
 No AI-based content generation
 No database integration
