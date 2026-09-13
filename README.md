@@ -13,7 +13,7 @@ It works using predefined formatting rules and template rendering logic.
 The main objective of this project is:
 To help students quickly create job-ready documents
 To automate formatting using rule-based logic
-To demonstrate Flask-based full-stack development skills
+To demonstrate practical web application development using python and flask.
 This project was developed as part of an internship academic submission.
 🏗️ Project Structure
 Copy code
@@ -137,4 +137,4 @@ Add database storage
 Add optional AI suggestion system
 👩‍💻 Developed For
 Academic / Internship submission project
-Built using Flask full-stack web development concepts.
+Built using python, flask, HTML, CSS and JavaScript
